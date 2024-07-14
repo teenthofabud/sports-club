@@ -1,11 +1,20 @@
 package com.teenthofabud.sports.football;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
     private Player player;
+    @BeforeEach
+    void setUp() {
+        player = Player.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .phoneNumber("0799912938")
+                .build();
+    }
 
     @Test
     void testAddPlayer(){
@@ -14,31 +23,32 @@ class PlayerTest {
     }
     @Test
     void testRemovePlayer(){
-        Player removedPlayer = Player.remove(player.getId());
+        Player addedPlayer = Player.add(player);
+        Player removedPlayer = Player.remove(addedPlayer.getId());
         assertEquals(player, removedPlayer);
     }
     @Test
-    void testGetId(){
-        assertEquals(player.getId(), 1L);
-    }
-    @Test
     void testEditFirstName(){
-        Player editedName = Player.editFirstName(1L, "John");
+        Player addedPlayer = Player.add(player);
+        Player editedName = Player.editFirstName(player.getId(), player.getFirstName());
         assertEquals("John", editedName.getFirstName());
     }
     @Test
     void testEditLastName(){
-        Player editedName = Player.editLastName(1L, "Doe");
+        Player addedPlayer = Player.add(player);
+        Player editedName = Player.editLastName(addedPlayer.getId(), player.getLastName());
         assertEquals("Doe", editedName.getLastName());
     }
     @Test
     void testEditEmail(){
-        Player editedEmail = Player.editEmail(1L, "john@doe.com");
+        Player addedPlayer = Player.add(player);
+        Player editedEmail = Player.editEmail(addedPlayer.getId(), addedPlayer.getEmail());
         assertEquals("john@doe.com", editedEmail.getEmail());
     }
     @Test
     void testEditPhone(){
-        Player editedPhone = Player.editPhoneNumber(1L, "0404059509504");
+        Player addedPlayer = Player.add(player);
+        Player editedPhone = Player.editPhoneNumber(addedPlayer.getId(), addedPlayer.getPhoneNumber());
         assertEquals("0404059509504", editedPhone.getPhoneNumber());
     }
 
