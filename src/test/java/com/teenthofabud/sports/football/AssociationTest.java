@@ -37,20 +37,20 @@ class AssociationTest {
     @Test
     void testEditName(){
         Association addedAssociation = Association.add(association);
-        Association editedName = Association.editName(addedAssociation.getId(), association.getName());
-        assertEquals("Test", editedName.getName());
+        Association editedName = Association.editName(addedAssociation.getId(), "Jane");
+        assertEquals("Jane", editedName.getName());
     }
     @Test
     void testEditEmail(){
         Association addedAssociation = Association.add(association);
-        Association editedEmail = Association.editEmail(addedAssociation.getId(), addedAssociation.getEmail());
-        assertEquals("test@test.com", editedEmail.getEmail());
+        Association editedEmail = Association.editEmail(addedAssociation.getId(), "test2@gmail.com");
+        assertEquals("test2@test.com", editedEmail.getEmail());
     }
     @Test
     void testEditWebsite(){
         Association addedAssociation = Association.add(association);
-        Association editedWebsite = Association.editWebsite(addedAssociation.getId(), addedAssociation.getWebsite());
-        assertEquals("testwebsite.com", editedWebsite.getWebsite());
+        Association editedWebsite = Association.editWebsite(addedAssociation.getId(), "test3@gmail.com");
+        assertEquals("test3website.com", editedWebsite.getWebsite());
     }
     @Test
     void testValidate(){

@@ -30,26 +30,26 @@ class PlayerTest {
     @Test
     void testEditFirstName(){
         Player addedPlayer = Player.add(player);
-        Player editedName = Player.editFirstName(player.getId(), player.getFirstName());
-        assertEquals("John", editedName.getFirstName());
+        Player editedName = Player.editFirstName(player.getId(), "Mike");
+        assertEquals("Mike", editedName.getFirstName());
     }
     @Test
     void testEditLastName(){
         Player addedPlayer = Player.add(player);
-        Player editedName = Player.editLastName(addedPlayer.getId(), player.getLastName());
-        assertEquals("Doe", editedName.getLastName());
+        Player editedName = Player.editLastName(addedPlayer.getId(), "Raye");
+        assertEquals("Raye", editedName.getLastName());
     }
     @Test
     void testEditEmail(){
         Player addedPlayer = Player.add(player);
-        Player editedEmail = Player.editEmail(addedPlayer.getId(), addedPlayer.getEmail());
-        assertEquals("john@doe.com", editedEmail.getEmail());
+        Player editedEmail = Player.editEmail(addedPlayer.getId(), "raye@gmail.com");
+        assertEquals("Raye@gmail.com", editedEmail.getEmail());
     }
     @Test
     void testEditPhone(){
         Player addedPlayer = Player.add(player);
-        Player editedPhone = Player.editPhoneNumber(addedPlayer.getId(), addedPlayer.getPhoneNumber());
-        assertEquals("0404059509504", editedPhone.getPhoneNumber());
+        Player editedPhone = Player.editPhoneNumber(addedPlayer.getId(), "024567772345");
+        assertEquals("024567772345", editedPhone.getPhoneNumber());
     }
 
 }
