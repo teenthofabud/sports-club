@@ -112,6 +112,10 @@ public class Player implements Comparable<Player> {
         COLLECTION.put(id, player);
         return player;
     }
+    public static void resetPlayerCollection(){
+        COLLECTION.clear();
+        ID = 1L;
+    }
 
     private static Player editHelper(Long id, String key, String value) {
         if(!COLLECTION.containsKey(id)) {

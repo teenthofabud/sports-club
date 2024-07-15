@@ -1,5 +1,6 @@
 package com.teenthofabud.sports.football;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,5 +52,8 @@ class PlayerTest {
         Player editedPhone = Player.editPhoneNumber(addedPlayer.getId(), "024567772345");
         assertEquals("024567772345", editedPhone.getPhoneNumber());
     }
-
+    @AfterEach
+    void tearDown(){
+        Player.resetPlayerCollection();
+    }
 }

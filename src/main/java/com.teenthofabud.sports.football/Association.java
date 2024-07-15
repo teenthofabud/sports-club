@@ -95,7 +95,10 @@ public class Association implements Comparable<Association> {
         COLLECTION.put(id, association);
         return association;
     }
-
+    public static void resetCollection(){
+        COLLECTION.clear();
+        ID = 1L;
+    }
     public static Association editEmail(Long id, String email) {
         Association association = editHelper(id, "email", email);
         association.setEmail(email);
