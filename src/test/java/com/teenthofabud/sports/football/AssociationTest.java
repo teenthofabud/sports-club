@@ -6,6 +6,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+import java.util.TreeMap;
+
 class AssociationTest {
     private Association association;
     @BeforeEach
@@ -60,7 +63,16 @@ class AssociationTest {
         assertEquals("Name cannot be empty", exception.getMessage());
     }
     @AfterEach
-    void tearDown(){
-        Association.resetCollection();
+    void tearDown() throws Exception{
+        resetStaticFields();
+    }
+    private void resetStaticFields() throws Exception{
+        Field collectionField = Association.class.getDeclaredField("COLLECTION");
+        collectionField.setAccessible(true);
+        collectionField.set(null,new TreeMap<>());
+
+        Field idField = Association.class.getDeclaredField("ID");
+        idField.setAccessible(true);
+        idField.set(null, 1L);
     }
 }

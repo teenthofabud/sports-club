@@ -4,6 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+import java.util.TreeMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
@@ -53,7 +56,16 @@ class PlayerTest {
         assertEquals("024567772345", editedPhone.getPhoneNumber());
     }
     @AfterEach
-    void tearDown(){
-        Player.resetPlayerCollection();
+    void tearDown() throws Exception{
+        resetStaticFields();
+    }
+    private void resetStaticFields() throws Exception{
+        Field collectionField = Player.class.getDeclaredField("COLLECTION");
+        collectionField.setAccessible(true);
+        collectionField.set(null,new TreeMap<>());
+
+        Field idField = Player.class.getDeclaredField("ID");
+        idField.setAccessible(true);
+        idField.set(null, 1L);
     }
 }
