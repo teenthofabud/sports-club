@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +20,10 @@ class PlayerTest {
                 .phoneNumber("0799912938")
                 .build();
     }
-
+    @AfterEach
+    void tearDown() throws Exception{
+        resetStaticFields();
+    }
     @Test
     void testAddPlayer(){
         Player addedPlayer = Player.add(player);
@@ -55,17 +59,14 @@ class PlayerTest {
         Player editedPhone = Player.editPhoneNumber(addedPlayer.getId(), "024567772345");
         assertEquals("024567772345", editedPhone.getPhoneNumber());
     }
-    @AfterEach
-    void tearDown() throws Exception{
-        resetStaticFields();
-    }
-    private void resetStaticFields() throws Exception{
-        Field collectionField = Player.class.getDeclaredField("COLLECTION");
-        collectionField.setAccessible(true);
-        collectionField.set(null,new TreeMap<>());
+    private void resetStaticFields(){
+        Collection<Player> players = Player.get();
+        for (Player player : players){
+            Player.remove(player.getId());
+        }
+        Player playersBuilder = Player.builder().firstName("Joe").lastName("Dori").phoneNumber("0990098998").build();
+        Player addedPlayer = Player.add(playersBuilder);
+        Player.remove(addedPlayer.getId());
 
-        Field idField = Player.class.getDeclaredField("ID");
-        idField.setAccessible(true);
-        idField.set(null, 1L);
     }
 }
