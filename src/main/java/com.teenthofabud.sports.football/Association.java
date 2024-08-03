@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.Map;
@@ -95,7 +94,6 @@ public class Association implements Comparable<Association> {
         COLLECTION.put(id, association);
         return association;
     }
-
     public static Association editEmail(Long id, String email) {
         Association association = editHelper(id, "email", email);
         association.setEmail(email);

@@ -112,7 +112,6 @@ public class Player implements Comparable<Player> {
         COLLECTION.put(id, player);
         return player;
     }
-
     private static Player editHelper(Long id, String key, String value) {
         if(!COLLECTION.containsKey(id)) {
             throw new NoSuchElementException("Player does not exist with ID " + id);
