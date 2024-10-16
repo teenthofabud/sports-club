@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: football-club-management
+  flyway:
+    enabled: true
+    locations: db/migration
+    baseline-on-migrate: true
+    out-of-order: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 8080
