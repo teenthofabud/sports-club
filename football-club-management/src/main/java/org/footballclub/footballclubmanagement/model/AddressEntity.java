@@ -23,17 +23,16 @@ import lombok.Setter;
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
     private Long id;
-    @Column(name = "street")
+
     private String street;
-    @Column(name = "city")
+
     private String city;
-    @Column(name="state")
+
     private String state;
-    @Column(name="zip")
+
     private String zip;
-    @Column(name = "type")
+
     private String type;
 
     @OneToOne(mappedBy = "address" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)

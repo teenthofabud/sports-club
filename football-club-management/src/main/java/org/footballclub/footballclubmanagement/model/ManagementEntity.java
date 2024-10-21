@@ -23,11 +23,9 @@ import lombok.Setter;
 public class ManagementEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="management_id")
     private Long id;
-    @Column(name = "name")
     private String name;
-    @Column(name="contact")
+
     private String contact;
 
 

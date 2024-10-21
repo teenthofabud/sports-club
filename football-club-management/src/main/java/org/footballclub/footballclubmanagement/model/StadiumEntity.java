@@ -3,7 +3,9 @@ package org.footballclub.footballclubmanagement.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -24,20 +26,17 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Table(name="stadium")
 public class StadiumEntity {
     @Id
-    @GeneratedValue
-    @Column(name="stadium_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
     private String name;
-    @Column(name="type")
     private String type;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="address_id")
+    @JoinColumn(name="address_id", foreignKey = @ForeignKey(name = "fk_stadium_address"))
     private AddressEntity address;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="club_id")
+    @JoinColumn(name="club_id", foreignKey = @ForeignKey(name = "fk_stadium_club"))
     private ClubEntity club;
 
     public StadiumEntity(String name, String type){

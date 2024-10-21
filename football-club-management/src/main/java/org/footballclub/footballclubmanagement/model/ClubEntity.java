@@ -4,6 +4,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,35 +28,37 @@ import java.util.List;
 public class ClubEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="club_id")
     private Long id;
 
-    @Column(name = "name")
+
     private String name;
-    @Column(name="email")
+
     private String email;
-    @Column(name="abbreviation")
+
     private String abbreviation;
+
     @Column(name = "phone_number")
     private String phoneNumber;
+
     @Column(name="logo_url")
     private String logoUrl;
-    @Column(name="website")
+
+
     private String website;
 
     @OneToMany(mappedBy = "club",fetch=FetchType.LAZY,cascade= CascadeType.ALL)
     private List<StadiumEntity> stadium;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="address_id")
+    @JoinColumn(name="address_id",foreignKey = @ForeignKey(name = "fk_club_address"))
     private AddressEntity address;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "level_id")
+    @JoinColumn(name="level_id",foreignKey = @ForeignKey(name = "fk_club_level"))
     private LevelEntity level;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="management_id")
+    @JoinColumn(name="management_id", foreignKey = @ForeignKey(name = "fk_club_management"))
     private ManagementEntity management;
 
     public ClubEntity(String name, String email, String abbreviation, String phoneNumber, String logoUrl, String website){

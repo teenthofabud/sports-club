@@ -1,20 +1,16 @@
 package org.footballclub.footballclubmanagement.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import org.footballclub.footballclubmanagement.config.TestConfig;
 import org.footballclub.footballclubmanagement.model.StadiumEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
-@Import(TestConfig.class)
-@Slf4j
 class StadiumRepositoryTest {
     @Autowired
     private StadiumRepository stadiumRepository;

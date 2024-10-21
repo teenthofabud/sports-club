@@ -1,18 +1,15 @@
 package org.footballclub.footballclubmanagement.repository;
 
-import org.footballclub.footballclubmanagement.config.TestConfig;
 import org.footballclub.footballclubmanagement.model.ClubEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
-@Import(TestConfig.class)
 class ClubRepositoryTest {
     @Autowired
     private ClubRepository clubRepository;

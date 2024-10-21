@@ -22,10 +22,8 @@ import lombok.Setter;
 @Table
 public class LevelEntity {
     @Id
-    @Column(name="level_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="level_name")
     private String levelName;
 
     @OneToOne(mappedBy = "level", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
