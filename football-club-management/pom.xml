@@ -6,10 +6,8 @@
 		<groupId>com.teenthofabud.sports</groupId>
 		<artifactId>sports-club</artifactId>
 		<version>2024.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.sportclubmanagement</groupId>
-	<artifactId>sport-club-management</artifactId>
+	<artifactId>football-club-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sport-club-management</name>
 	<description>sport-club-management</description>
