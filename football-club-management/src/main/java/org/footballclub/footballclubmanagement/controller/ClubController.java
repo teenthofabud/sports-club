@@ -1,11 +1,16 @@
 package org.footballclub.footballclubmanagement.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.groups.Default;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.footballclub.footballclubmanagement.business.ClubService;
 import org.footballclub.footballclubmanagement.dto.ClubDto;
 import org.footballclub.footballclubmanagement.dto.PaginatedResponse;
+import org.footballclub.footballclubmanagement.exceptions.ClubDetailsValidationExceptions;
+import org.footballclub.footballclubmanagement.exceptions.ErrorResponse;
 import org.footballclub.footballclubmanagement.repository.ClubRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +36,7 @@ public class ClubController {
     }
 
     @PostMapping("/createClub")
-    public ResponseEntity<String> createClub(@RequestBody ClubDto clubDto) {
+    public ResponseEntity<String> createClub(@RequestBody @Valid ClubDto clubDto) {
         log.info("Creating club: {}", clubDto);
 
         clubService.createClub(clubDto);
@@ -53,8 +58,8 @@ public class ClubController {
     }
 
     @GetMapping("/getAllClubs")
-    public ResponseEntity<PaginatedResponse<ClubDto>> getAllClubs(@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "5") int size) {
+    public ResponseEntity<PaginatedResponse<ClubDto>> getAllClubs(@RequestParam(defaultValue = "0") @Min(0) int page,
+                                                                  @RequestParam(defaultValue = "5") @Positive int size) {
         PaginatedResponse<ClubDto> response = clubService.getAllClubs(page, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

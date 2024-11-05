@@ -26,3 +26,6 @@ spring:
       enabled: true
 server:
   port: 8082
+feature:
+  updateClubEnabled: false
+  getAllClubDetailsByFilter: false
