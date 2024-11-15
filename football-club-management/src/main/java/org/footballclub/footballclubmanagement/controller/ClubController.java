@@ -28,17 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/club")
 public class ClubController {
     private final ClubService clubService;
-    private final ClubRepository clubRepository;
 
     public ClubController(ClubService clubService, ClubRepository clubRepository) {
         this.clubService = clubService;
-        this.clubRepository = clubRepository;
     }
 
     @PostMapping("/createClub")
     public ResponseEntity<String> createClub(@RequestBody @Valid ClubDto clubDto) {
         log.info("Creating club: {}", clubDto);
-
         clubService.createClub(clubDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("CLub created successfully");
 
@@ -57,18 +54,11 @@ public class ClubController {
         return ResponseEntity.ok(club);
     }
 
-    @GetMapping("/getAllClubs")
-    public ResponseEntity<PaginatedResponse<ClubDto>> getAllClubs(@RequestParam(defaultValue = "0") @Min(0) int page,
-                                                                  @RequestParam(defaultValue = "5") @Positive int size) {
-        PaginatedResponse<ClubDto> response = clubService.getAllClubs(page, size);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     @PostMapping("/searchClubs")
-    public ResponseEntity<PaginatedResponse<ClubDto>> searchClubs(@RequestBody ClubDto clubDto,
+    public ResponseEntity<PaginatedResponse<ClubDto>> searchClubs(@RequestBody (required = false) ClubDto filter,
                                                                     @RequestParam(defaultValue = "0") int page,
-                                                                    @RequestParam(defaultValue = "5") int size) {
-        PaginatedResponse<ClubDto> response = clubService.getClubByFilter(clubDto,page,size);
+                                                                  @RequestParam(defaultValue = "5") int size) {
+        PaginatedResponse<ClubDto> response = clubService.getClubs(filter,page,size);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
 

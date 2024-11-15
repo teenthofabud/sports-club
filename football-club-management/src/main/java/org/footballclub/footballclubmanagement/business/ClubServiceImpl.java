@@ -65,19 +65,25 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public PaginatedResponse<ClubDto> getAllClubs(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ClubEntity> clubEntityPage = clubRepository.findAll(pageable);
-        Page<ClubDto> clubDtoPage = clubEntityPage.map(
-                club -> ClubDto.builder()
-                        .email(club.getEmail())
-                        .abbreviation(club.getAbbreviation())
-                        .logoUrl(club.getLogoUrl())
-                        .website(club.getWebsite())
-                        .phoneNumber(club.getPhoneNumber())
-                        .build());
+    public PaginatedResponse<ClubDto> getClubs(ClubDto filter, int page, int size) {
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ClubEntity> clubEntityPage;
+            if (filter != null) {
+                clubEntityPage = clubRepository.findByFilter(
+                        filter.getName(),
+                        filter.getEmail(),
+                        filter.getAbbreviation(),
+                        pageable);
 
-        return getClubDtoPaginatedResponse(clubDtoPage);
+            } else {
+                clubEntityPage = clubRepository.findAll(pageable);
+            }
+            Page<ClubDto> clubDtoPage = clubEntityPage.map(clubMapper::convertEntityToDto);
+            return getClubDtoPaginatedResponse(clubDtoPage);
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching clubs",e);
+        }
     }
 
     private static PaginatedResponse<ClubDto> getClubDtoPaginatedResponse(Page<ClubDto> clubDtoPage) {
@@ -90,31 +96,5 @@ public class ClubServiceImpl implements ClubService {
         );
     }
 
-    @Override
-    public PaginatedResponse<ClubDto> getClubByFilter(ClubDto clubDto, int page, int size) {
-        if(!getAllClubDetailsByFilterEnabled){
-            throw new UnsupportedOperationException("Get all club details by filter disabled");
-        }
-        if (clubDto == null) {
-            throw new NullPointerException("Club filter cannot be null");
-        }
-        try {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<ClubEntity> filterClubs = clubRepository.findByFilter(clubDto.getName(),
-                                                                       clubDto.getEmail(),
-                                                                       clubDto.getAbbreviation(), pageable);
-            List<ClubDto> clubDtoList = filterClubs.getContent().stream()
-                                                   .map(clubMapper::convertEntityToDto)
-                                                   .collect(Collectors.toList());
-            return new PaginatedResponse<>(
-                    clubDtoList,
-                    filterClubs.getNumber(),
-                    filterClubs.getTotalPages(),
-                    filterClubs.getTotalElements(),
-                    filterClubs.getSize());
-        } catch (Exception e) {
-            throw new RuntimeException("Error fetching filtered clubs");
-        }
-    }
 
 }
