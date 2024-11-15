@@ -8,7 +8,6 @@ public interface ClubService {
 
     ClubDto updateClub(ClubDto clubDto,Long id);
     ClubDto getClubById(Long d);
-    PaginatedResponse<ClubDto> getAllClubs(int page, int size);
-    PaginatedResponse<ClubDto> getClubByFilter(ClubDto clubDto, int page, int size);
+    PaginatedResponse<ClubDto> getClubs(ClubDto filter,int page, int size);
 
 }
